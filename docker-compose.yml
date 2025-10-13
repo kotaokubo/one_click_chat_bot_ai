@@ -1,0 +1,19 @@
+services:
+  oneclick-chatbot-web:
+    image: nginx:alpine
+    container_name: oneclick-chatbot-web
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/usr/share/nginx/html
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    restart: unless-stopped
+    networks:
+      - oneclick-network
+
+networks:
+  oneclick-network:
+    driver: bridge
+
+volumes:
+  nginx_data:
