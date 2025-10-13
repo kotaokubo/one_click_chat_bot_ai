@@ -1,0 +1,32 @@
+# Git関連
+.git
+.gitignore
+.gitattributes
+
+# Docker関連
+docker-compose.yml
+Dockerfile
+.dockerignore
+
+# ドキュメント（必要に応じてコメントアウト）
+# README.md
+
+# エディタ/IDE設定
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS生成ファイル
+.DS_Store
+Thumbs.db
+
+# ログファイル
+*.log
+
+# 一時ファイル
+tmp/
+temp/
+*.tmp
+
