@@ -1820,19 +1820,19 @@
             <div style="max-width: 600px; margin: 0 auto;">
                 <div>
                     <h3 style="margin-bottom: 24px; font-size: 20px; text-align: center;">お問い合わせフォーム</h3>
-                    <form style="display: flex; flex-direction: column; gap: 20px;">
-                        <input type="text" placeholder="お名前" style="padding: 16px; border: 2px solid #e8e8e8; border-radius: 8px; font-size: 16px;">
-                        <input type="email" placeholder="メールアドレス" style="padding: 16px; border: 2px solid #e8e8e8; border-radius: 8px; font-size: 16px;">
-                        <input type="text" placeholder="会社名" style="padding: 16px; border: 2px solid #e8e8e8; border-radius: 8px; font-size: 16px;">
-                        <select style="padding: 16px; border: 2px solid #e8e8e8; border-radius: 8px; font-size: 16px; background: white;">
-                            <option>お問い合わせ種別を選択</option>
+                    <form id="contactForm" data-recipient="kutpremium@gmail.com" style="display: flex; flex-direction: column; gap: 20px;">
+                        <input id="contactName" name="name" type="text" placeholder="お名前" required style="padding: 16px; border: 2px solid #e8e8e8; border-radius: 8px; font-size: 16px;">
+                        <input id="contactEmail" name="email" type="email" placeholder="メールアドレス" required style="padding: 16px; border: 2px solid #e8e8e8; border-radius: 8px; font-size: 16px;">
+                        <input id="contactCompany" name="company" type="text" placeholder="会社名" style="padding: 16px; border: 2px solid #e8e8e8; border-radius: 8px; font-size: 16px;">
+                        <select id="contactType" name="type" required style="padding: 16px; border: 2px solid #e8e8e8; border-radius: 8px; font-size: 16px; background: white;">
+                            <option value="" disabled selected>お問い合わせ種別を選択</option>
                             <option>サービス詳細について</option>
                             <option>料金・プランについて</option>
                             <option>導入スケジュールについて</option>
                             <option>技術的な質問</option>
                             <option>その他</option>
                         </select>
-                        <textarea placeholder="お問い合わせ内容をご記入ください" rows="6" style="padding: 16px; border: 2px solid #e8e8e8; border-radius: 8px; font-size: 16px; resize: vertical;"></textarea>
+                        <textarea id="contactMessage" name="message" placeholder="お問い合わせ内容をご記入ください" rows="6" required style="padding: 16px; border: 2px solid #e8e8e8; border-radius: 8px; font-size: 16px; resize: vertical;"></textarea>
                         <button type="submit" class="cta-button-large" style="align-self: center; border: none;">送信する</button>
                     </form>
                 </div>
@@ -1842,7 +1842,7 @@
 
     <!-- フッター -->
     <footer class="footer">
-        <p>&copy; 2025 OneClickChatBotAI. All rights reserved.</p>
+        <p>&copy; 2025 OKB Solutions. All rights reserved.</p>
     </footer>
 
     <!-- チャットボットウィジェット -->
@@ -1914,6 +1914,35 @@
                 }
             });
         });
+
+        // お問い合わせフォーム送信時にメーラーを起動
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+
+                const recipient = contactForm.getAttribute('data-recipient') || 'info@oneclickchatbot.ai';
+                const name = document.getElementById('contactName').value.trim();
+                const email = document.getElementById('contactEmail').value.trim();
+                const company = document.getElementById('contactCompany').value.trim();
+                const inquiryType = document.getElementById('contactType').value;
+                const message = document.getElementById('contactMessage').value.trim();
+
+                const subject = encodeURIComponent(`OneClickChatBotAIお問い合わせ（${inquiryType || '未選択'}）`);
+                const bodyLines = [
+                    `お名前: ${name || '未記入'}`,
+                    `メールアドレス: ${email || '未記入'}`,
+                    `会社名: ${company || '未記入'}`,
+                    `お問い合わせ種別: ${inquiryType || '未選択'}`,
+                    '',
+                    'お問い合わせ内容:',
+                    message || '未入力'
+                ];
+                const body = encodeURIComponent(bodyLines.join('\n'));
+
+                window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
+            });
+        }
 
         // チャットボット機能
         class OneClickChatBot {
