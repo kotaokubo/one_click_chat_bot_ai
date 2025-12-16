@@ -1340,8 +1340,18 @@
 
         @media (max-width: 768px) {
             /* ヘッダー調整 */
+            .header {
+                padding: 12px 0;
+            }
+
+            .header-content {
+                max-width: 100%;
+                width: 100%;
+                padding: 0 14px;
+            }
+
             .logo {
-                font-size: 18px;
+                font-size: 16px;
             }
 
             .nav {
@@ -1349,13 +1359,8 @@
             }
 
             .header .cta-button {
-                padding: 8px 16px;
-                font-size: 14px;
-            }
-
-            .header-content {
-                max-width: 100%;
-                width: 100%;
+                padding: 7px 14px;
+                font-size: 13px;
             }
 
             /* ヒーローセクション */
@@ -1454,6 +1459,7 @@
             .section-content {
                 padding: 0 15px;
                 max-width: 100%;
+                width: 100%;
             }
             
             .section-title {
@@ -1642,6 +1648,17 @@
                 gap: 40px !important;
                 padding: 0 15px !important;
                 max-width: 100%;
+            }
+
+            /* インライン指定のmax-widthをリセットして全幅に広げる */
+            .section-content [style*="max-width"] {
+                max-width: 100% !important;
+            }
+
+            /* 問い合わせフォームコンテナを全幅に */
+            #contact .section-content > div > div {
+                max-width: 100% !important;
+                width: 100%;
             }
 
             .contact form {
